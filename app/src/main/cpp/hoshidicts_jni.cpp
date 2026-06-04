@@ -274,6 +274,13 @@ Java_de_manhhao_hoshi_HoshiDicts_rebuildQuery(JNIEnv *env, jobject, jlong sessio
     obj->lookup = std::make_unique<Lookup>(*obj->query, obj->deinflector);
 }
 
+extern "C" JNIEXPORT void JNICALL
+Java_de_manhhao_hoshi_HoshiDicts_setLookupLanguage(JNIEnv *env, jobject, jlong session,
+                                                   jstring language) {
+    LookupObject *obj = as_object(session);
+    obj->deinflector.set_language(jstring_to_std_string(env, language));
+}
+
 extern "C" JNIEXPORT jobject JNICALL
 Java_de_manhhao_hoshi_HoshiDicts_importDictionary(JNIEnv *env, jobject, jstring zip_path,
                                                   jstring output_dir, jboolean low_ram) {
